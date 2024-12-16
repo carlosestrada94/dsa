@@ -71,7 +71,7 @@ function implementationExample(nums: number[], k: number): number {
  * What is the length of the longest substring achievable that contains only "1"?
  */
 
-function longestSubstring(s: string): number {
+/* function longestSubstring(s: string): number {
   let left = 0;
   let ans = 0;
   let zeroIndex: number | null = null;
@@ -91,6 +91,29 @@ function longestSubstring(s: string): number {
   }
 
   return ans;
+} */
+
+function longestSubstring(s: string): number {
+  let left = 0;
+  let count = 0;
+  let ans = 0;
+
+  for (let right = 0; right < s.length; right++) {
+    if (s[right] === "0") {
+      count++;
+    }
+
+    while (count > 1) {
+      if (s[left] === "0") {
+        count -= 1;
+      }
+      left++;
+    }
+
+    ans = Math.max(ans, right - left + 1);
+  }
+
+  return ans;
 }
 
 console.log(longestSubstring("1101100111")); // 5
@@ -98,3 +121,4 @@ console.log(longestSubstring("11111")); // 5
 console.log(longestSubstring("1110111")); // 7
 console.log(longestSubstring("0")); // 1
 console.log(longestSubstring("000")); // 1
+console.log(longestSubstring("01010101")); // 3
