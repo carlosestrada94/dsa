@@ -77,10 +77,12 @@ function longestSubstring(s: string): number {
   let zeroIndex: number | null = null;
 
   for (let right = 0; right < s.length; right++) {
-    if (zeroIndex !== null) {
+    if (s[right] === "1" || (s[right] === "0" && zeroIndex === null)) {
       ans = Math.max(ans, right - left + 1);
+    }
+
+    if (zeroIndex !== null && s[right] === "0") {
       left = zeroIndex + 1;
-      zeroIndex = null;
     }
 
     if (s[right] === "0") {
@@ -91,4 +93,8 @@ function longestSubstring(s: string): number {
   return ans;
 }
 
-console.log(longestSubstring("1111100111"));
+console.log(longestSubstring("1101100111")); // 5
+console.log(longestSubstring("11111")); // 5
+console.log(longestSubstring("1110111")); // 7
+console.log(longestSubstring("0")); // 1
+console.log(longestSubstring("000")); // 1
